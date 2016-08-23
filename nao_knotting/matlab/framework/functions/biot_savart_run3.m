@@ -42,7 +42,29 @@ end
 
 % grad = attraction_force * grad ./ norm(grad);
 
-end_eff_ref = end_effector + grad(1:3);
+p_0 = p;
+p_1 = p + grad;
+p_0_in_loop = world_to_loop_4x4 * [p_0;1];
+p_1_in_loop = world_to_loop_4x4 * [p_1;1];
+grad_in_loop = p_1_in_loop - p_0_in_loop;
+
+grad_in_loop(1:2) = biot_savart.alfa * grad_in_loop(1:2);
+grad_in_loop(3)   = biot_savart.beta * grad_in_loop(3);
+% the third component corresponds to the perpendicular vector to the loop
+
+p_0_in_loop_mod = [0,0,0]';
+p_1_in_loop_mod = grad_in_loop(1:3);
+% p_0_mod = inv(world_to_loop_4x4) * [p_0_in_loop_mod;1];
+% p_1_mod = inv(world_to_loop_4x4) * [p_1_in_loop_mod;1];
+
+p_0_mod = world_to_loop_4x4 \ [p_0_in_loop_mod;1];
+p_1_mod = world_to_loop_4x4 \ [p_1_in_loop_mod;1];
+
+
+grad_mod = p_1_mod(1:3) - p_0_mod(1:3);
+grad_mod = attraction_force * grad_mod ./ norm(grad_mod);
+
+end_eff_ref = end_effector + grad_mod;
 
 
 end

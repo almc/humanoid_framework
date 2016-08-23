@@ -29,7 +29,7 @@ angles_rev  = linspace(0, -2*pi, loop.N);
 % loop.pos(:,unbent_region) = [             0*(angles(unbent_region)) + loop.off_x;
 %                            loop.radius*sin(angles(unbent_region))   + loop.off_x;
 %                            loop.radius*cos(angles(unbent_region))   + 2.5];
-% 
+%
 % loop.pos_rev(:,unbent_region) = [           0*(angles_rev(unbent_region)) + loop.off_x;
 %                                loop.radius*sin(angles_rev(unbent_region)) + loop.off_y;
 %                                loop.radius*cos(angles_rev(unbent_region)) + 2.5];
@@ -76,7 +76,7 @@ loop.parl_vector1 = loop.pos(:,1) - loop.center;
 loop.parl_vector2 = cross(loop.perp_vector, loop.parl_vector1);
 
 loop.perp_vector  = vector_length*-loop.perp_vector  ./ norm(loop.perp_vector ,2);
-loop.parl_vector1 = vector_length*+loop.parl_vector1 ./ norm(loop.parl_vector1,2);            
+loop.parl_vector1 = vector_length*+loop.parl_vector1 ./ norm(loop.parl_vector1,2);
 loop.parl_vector2 = vector_length*-loop.parl_vector2 ./ norm(loop.parl_vector2,2);
 
 
@@ -85,7 +85,7 @@ a1 = [1,0,0]'; a2 = [0,1,0]'; a3 = [0,0,1]';
 b1 = loop.parl_vector1; b2 = loop.parl_vector2; b3 = loop.perp_vector;
 M  = [b1, b2, b3];
 O  = [a1, a2, a3];
-world_to_loop_3x3 = linsolve(M, O);
+world_to_loop_3x3 = linsolve(M', O')';
 
 t_loop = world_to_loop_3x3 * loop.center;
 world_to_loop_4x4 = [world_to_loop_3x3(1,1) world_to_loop_3x3(1,2) world_to_loop_3x3(1,3) -t_loop(1);
@@ -120,13 +120,13 @@ for i = 1:length(loop.pos(1,:))-1
         end
     end
 end
-% 
+%
 % %% grid #2
 % X_grid2 = X_grid + 0.2*U_grid;
 % Y_grid2 = Y_grid + 0.2*V_grid;
 % Z_grid2 = Z_grid + 0.2*W_grid;
 % U_grid2 = zeros(size(X_grid2)); V_grid2 = zeros(size(Y_grid2)); W_grid2 = zeros(size(Z_grid2));
-% 
+%
 % for i = 1:length(loop.pos(1,:))-1
 %     pl = loop.pos(:,i  ); %[x(i); y(i); z(i)];
 %     dl = loop.pos(:,i+1) - loop.pos(:,i); %[x(i+1) - x(i); y(i+1) - y(i); z(i+1) - z(i)];
@@ -146,13 +146,13 @@ end
 %         end
 %     end
 % end
-% 
+%
 % %% grid #3
 % X_grid3 = X_grid2 + 0.2*U_grid2;
 % Y_grid3 = Y_grid2 + 0.2*V_grid2;
 % Z_grid3 = Z_grid2 + 0.2*W_grid2;
 % U_grid3 = zeros(size(X_grid3)); V_grid3 = zeros(size(Y_grid3)); W_grid3 = zeros(size(Z_grid3));
-% 
+%
 % for i = 1:length(loop.pos(1,:))-1
 %     pl = loop.pos(:,i  ); %[x(i); y(i); z(i)];
 %     dl = loop.pos(:,i+1) - loop.pos(:,i); %[x(i+1) - x(i); y(i+1) - y(i); z(i+1) - z(i)];
@@ -172,13 +172,13 @@ end
 %         end
 %     end
 % end
-% 
+%
 % %% grid #4
 % X_grid4 = X_grid3 + 0.2*U_grid3;
 % Y_grid4 = Y_grid3 + 0.2*V_grid3;
 % Z_grid4 = Z_grid3 + 0.2*W_grid3;
 % U_grid4 = zeros(size(X_grid4)); V_grid4 = zeros(size(Y_grid4)); W_grid4 = zeros(size(Z_grid4));
-% 
+%
 % for i = 1:length(loop.pos(1,:))-1
 %     pl = loop.pos(:,i  ); %[x(i); y(i); z(i)];
 %     dl = loop.pos(:,i+1) - loop.pos(:,i); %[x(i+1) - x(i); y(i+1) - y(i); z(i+1) - z(i)];
@@ -201,7 +201,7 @@ end
 
 
 %% move following the biot_savart law
-biot_savart.alfa = 1;
+biot_savart.alfa = 2;
 biot_savart.beta = 1;
 
 %% move perpendicular to the loop

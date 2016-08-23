@@ -135,9 +135,10 @@ for n = 1:N
         test_arm_reachability()
     end
 
-    %% calculate arm reference using biot_savart law
-%     [arm1.grad, arm1.ref(:,n)] = biot_savart_run1(arm1.ef, loop.pos,     loop, biot_savart);
-%     [arm2.grad, arm2.ref(:,n)] = biot_savart_run1(arm2.ef, loop.pos_rev, loop, biot_savart);
+    %% calculate arm reference using biot_savart law, note: this function is wrong,
+    % check biot_savart_run2 and 3. These are now called inside hybrid_controllerx
+    % [arm1.grad, arm1.ref(:,n)] = biot_savart_run1(arm1.ef, loop.pos,     loop, biot_savart);
+    % [arm2.grad, arm2.ref(:,n)] = biot_savart_run1(arm2.ef, loop.pos_rev, loop, biot_savart);
 
     %% simulate rope timestep
     rope_run

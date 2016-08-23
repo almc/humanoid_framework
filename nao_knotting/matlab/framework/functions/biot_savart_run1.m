@@ -32,6 +32,7 @@ grad = grad + cp;
 % O = [a1, a2, a3];
 % C = linsolve(M, O);
 
+# this is not the correct way of doing it, check biot_savart_run2 and 3
 grad_in_loop      = world_to_loop * grad;
 grad_in_loop(1:2) = biot_savart.alfa * grad_in_loop(1:2);
 grad_in_loop(3)   = biot_savart.beta * grad_in_loop(3);

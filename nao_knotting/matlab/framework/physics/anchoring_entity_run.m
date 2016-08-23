@@ -1,6 +1,6 @@
 
 %% dynamic deformation of the loop is bound to occur only through the insertion phase
-dynamic_mode = 4;
+dynamic_mode = 0;
 
 if state < 5
 
@@ -95,7 +95,7 @@ a1 = [1,0,0]'; a2 = [0,1,0]'; a3 = [0,0,1]';
 b1 = loop.parl_vector1; b2 = loop.parl_vector2; b3 = loop.perp_vector;
 M  = [b1, b2, b3];
 O  = [a1, a2, a3];
-world_to_loop_3x3 = linsolve(M, O);
+world_to_loop_3x3 = linsolve(M', O')';
 
 t_loop = world_to_loop_3x3 * loop.center;
 world_to_loop_4x4 = [world_to_loop_3x3(1,1) world_to_loop_3x3(1,2) world_to_loop_3x3(1,3) -t_loop(1);
